@@ -1,26 +1,35 @@
-const PopupWithForm = (props)=>{
-return(
-<div 
-      className={`popup popup_type_${props.name} ${
-        props.isOpen ? "popup_opened" : ""
-      }`}
+import React from "react";
+
+const PopupWithForm = (props) => {
+  return (
+    <div
+      className={`popup ${props.name} ${
+        props.isOpen ? "popup_active" : ""
+      }` }
     >
-        <div className="popup__container">
-            <button type="button" className="popup__close-btn" ></button>
-            <h3 className="popup__title">{props.title}</h3>
-            <form className="popup__inputs-container" name="popup__inputs" noValidate>
-                <div className="popup__inputs-div">
-                    <input id="name-input" name="name" className="popup__input popup__inputs-type-name" type="text" placeholder="Name" value="Jacques Cousteau" minLength="2" maxLength="40" required/>
-                    <span id="name-input-error" className="popup__input-error name-input-error"></span>
-                </div>
-                <div className="popup__inputs-div">
-                    <input id="description-input" name="job" className=" popup__input popup__inputs-type-description " type="text" value="Explorer " placeholder="About me " minLength="2" maxLength="200" required/>
-                    <span id="description-input-error" className="popup__input-error description-input-error"></span>
-                </div>
-                <button className="popup__submit-button " type="submit">save</button>
-            </form>
-        </div>
+      <div onChange className="popup__container">
+        <button
+          className="popup__close-btn"
+          type="button"
+          onClick={props.onClose}
+        ></button>
+        <h2 className="popup__title">{props.title}</h2>
+        <form
+          action="submit"
+          className={`popup__inputs-container popup__inputs-${props.name}`}
+          name={props.name}
+          onSubmit={props.onSubmit}
+        >
+          {props.children}
+        
+            <button  onChange className={`popup__submit-button popup__submit-button-${props.name}`} type="submit">
+              {props.buttonText}
+            </button>
+    
+        </form>
+      </div>
     </div>
-);
-}
+  );
+};
+
 export default PopupWithForm;

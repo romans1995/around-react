@@ -1,35 +1,26 @@
 const Card = (props) =>{
+  console.log(props)
 return(
-    <li className="card">
-   
-      {/* <button
-        type="button"
-        aria-label="delete card"
-        className="card__delete-button"
-        onClick={handleDeleteCard}
-      ></button> */}
-    
-    <img
-      src={props.card.link}
-      alt={props.card.name}
-      className="card__image"
-      defaultValue="img"
-     
-    />
-    <div className="card__title-area">
-      <h2 defaultValue="card__title" className="card__title">{props.card.name}</h2>
-
-      <div className="card__like-container">
+  <li className="element ">
+  <button
+    type="button "
+    aria-label="delete element "
+    className="element__delete-button "
+  ></button>
+  <img src={props.card.link} alt="# " className="element__image" />
+  <div className="element__title-area ">
+    <h2 className="element__title">{props.card.name}</h2>
+    <div className="element__like-countainer">
         <button
-         
-          type="button"
-          aria-label="like card"
-         
-        ></button>
-        <span defaultValue="card__title" className="card__like-count">{props.card.likes.length}</span>
-      </div>
+        className="element__like-button "
+        type="button "
+        aria-label="like element"
+      ></button>
+      <span className="element__likes-count">{props.card.likes.length}</span>
     </div>
-  </li>
+ 
+  </div>
+</li>
 
 );
 }

@@ -1,35 +1,46 @@
 
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import Footer from './Footer';
 import Header from './Header';
 import Main from './Main';
-import EditAvatarPopup from "./EditAvatarPopup";
-// import {api}  from './Api.js';
+import EditAvatarPopup from "./EditAvatarPopup.js";
+import EditAddPlace from "./EditAddPlace.js";
+import EditProfilePopup from "./EditProfilePopup";
+import { api } from "../utils/Api";
 
 function App() {
 
     // const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
     // const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+    const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
+    const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
+
+    const [cards, setCards] = useState([""]);
 
     const handleEditAvatarClick=()=>{
-        setIsEditAvatarPopupOpen(true)
+        setIsEditAvatarPopupOpen(true);
      }
      const handleEditProfileClick=()=>{
-        document.querySelector(".profile-popup").classList.add("popup_active");
+        setIsEditProfilePopupOpen(true)
      }
      const handleAddPlaceClick=()=>{
-        document.querySelector(".popup-addElement").classList.add("popup_active");
+        setIsAddPlacePopupOpen(true);
      }
-    // const [cards, setCards] = useState([]);
-    // useEffect(() => {
-    //     api
-    //       .getInitialCards()
-    //       .then((res) => {
-    //         setCards(res);
-    //       })
-    //       .catch(console.log);
-    //   }, []);
+
+     const closeAllPopups = () =>{
+        setIsEditProfilePopupOpen(false)
+        setIsAddPlacePopupOpen(false)
+        setIsEditAvatarPopupOpen(false)
+     }
+     useEffect(() => {
+        api
+          .getInitalCards()
+          .then((res) => {
+            setCards(res);
+          })
+          .catch(console.log);
+      }, []);
 
   return (
     <div className="body">
@@ -39,43 +50,11 @@ function App() {
   onEditAvatarClick={handleEditAvatarClick}
     onEditProfileClick={handleEditProfileClick}
     onAddPlaceClick={handleAddPlaceClick}
-
+    cards={cards}
+    onDeleteCard={}
     />
    <Footer/>
-    <section className="popup profile-popup">
-        <div className="popup__container">
-            <button type="button" className="popup__close-btn"></button>
-            <h3 className="popup__title">Edit profile</h3>
-            <form className="popup__inputs-container" name="popup__inputs" noValidate onChange>
-                <div className="popup__inputs-div">
-                    <input id="name-input" name="name" className="popup__input popup__inputs-type-name" type="text" placeholder="Name" value="Jacques Cousteau" minLength="2" maxLength="40" defaultValue="input" required/>
-                    <span id="name-input-error" className="popup__input-error name-input-error"></span>
-                </div>
-                <div className="popup__inputs-div">
-                    <input id="description-input" name="job" className=" popup__input popup__inputs-type-description " type="text" value="Explorer " placeholder="About me " minLength="2" maxLength="200"defaultValue="input" required/>
-                    <span id="description-input-error" className="popup__input-error description-input-error"></span>
-                </div>
-                <button className="popup__submit-button " type="submit">Save</button>
-            </form>
-        </div>
-    </section>
-    <section className=" popup popup-addElement ">
-        <div className="popup__container ">
-            <button type="button" className="popup__close-btn popup__close-btn-addPlace "></button>
-            <h3 className="popup__title ">New place</h3>
-            <form className="popup__inputs-container popup__inputs-container-addPlace " name="popup__addElement__inputs" noValidate onChange>
-                <div className="popup__inputs-div">
-                    <input id="placeName-input" name="name" className="popup__input popup__inputs-type-placeName " type="text" placeholder="Title " minLength="1" maxLength="30" defaultValue="input" required/>
-                    <span id="placeName-input-error" className="popup__input-error name-input-error"></span>
-                </div>
-                <div className="popup__inputs-div">
-                    <input id="placeLink-input" name="link" className="popup__input popup__inputs-type-placeLink" type="url" defaultValue="input" placeholder="Image url" required/>
-                    <span id="placeLink-input-error" className="popup__input-error placeLink-input-error "></span>
-                </div>
-                <button className="popup__submit-button popup__submit-button-addPlace " type="submit">Create</button>
-            </form>
-        </div>
-    </section>
+  
     <section className=" popup popup-deleteCard">
         <div className="popup__container">
             <button type="button" className="popup__close-btn popup__close-delete-card "></button>
@@ -85,11 +64,19 @@ function App() {
             </form>
         </div>
     </section>
-      <EditAvatarPopup
-         
-          isOpen={isEditAvatarPopupOpen}
-          
-        />
+   <EditAvatarPopup
+     isOpen={isEditAvatarPopupOpen}
+     onClose={closeAllPopups}
+
+       />:
+       <EditAddPlace
+       isOpen={isAddPlacePopupOpen}
+       onClose={closeAllPopups}
+       />
+       <EditProfilePopup
+       isOpen={isEditProfilePopupOpen}
+       onClose={closeAllPopups}
+       />
     <template className="element-Stracture ">
         <li className="element ">
           <button
