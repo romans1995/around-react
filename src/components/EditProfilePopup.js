@@ -9,7 +9,7 @@ const EditProfilePopup =({isOpen, onClose})=>{
         buttonText="Save"
         >
 
-<form className="popup__inputs-container" name="popup__inputs" noValidate onChange>
+<form className="popup__inputs-container" name="popup__inputs" noValidate >
                 <div className="popup__inputs-div">
                     <input id="name-input" name="name" className="popup__input popup__inputs-type-name" type="text" placeholder="Name"  minLength="2" maxLength="40" defaultValue="Jacques Cousteau" required/>
                     <span id="name-input-error" className="popup__input-error name-input-error"></span>

@@ -7,7 +7,7 @@ const PopupWithForm = (props) => {
         props.isOpen ? "popup_active" : ""
       }` }
     >
-      <div onChange className="popup__container">
+      <div  className="popup__container">
         <button
           className="popup__close-btn"
           type="button"
@@ -22,7 +22,7 @@ const PopupWithForm = (props) => {
         >
           {props.children}
         
-            <button  onChange className={`popup__submit-button popup__submit-button-${props.name}`} type="submit">
+            <button   className={`popup__submit-button popup__submit-button-${props.name}`} type="submit">
               {props.buttonText}
             </button>
     
