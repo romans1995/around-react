@@ -3,14 +3,12 @@ const Card = (props) =>{
   function handleClick() {
     props.onCardClick(props.card);
   }
-
 return(
   <li key={props.card._id} className="element">
   <button
     type="button "
     aria-label="delete element "
-    className="element__delete-button "
-    
+    className="element__delete-button"
   ></button>
   <img onClick={handleClick} src={props.card.link} alt={props.card.name} className="element__image" />
   <div className="element__title-area ">
@@ -21,7 +19,7 @@ return(
         type="button "
         aria-label="like element"
       ></button>
-      <span className="element__likes-count"></span>
+      <span className="element__likes-count" defaultValue="0">{props.card.likes?props.card.likes.length:0}</span>
     </div>
  
   </div>

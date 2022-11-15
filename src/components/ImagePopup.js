@@ -1,4 +1,4 @@
-import PopupWithForm from "./PopupWithForm";
+
 const ImagePopup = (props)=>{
 
   
@@ -11,7 +11,7 @@ const ImagePopup = (props)=>{
     <div className="popup__image-prev-container">
         <button className="popup__close-btn popup__close-button-image-prev" type="button" onClick={props.onClose} ></button>
         
-        <img src={props.card.link} alt="# " className="popup__image " />
+        <img src={props.card.link} alt={props.card.name} className="popup__image " />
         <p className="popup__caption ">{props.card.name}</p>
     </div>
 </div>)

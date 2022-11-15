@@ -1,34 +1,16 @@
-import React, { useState, useEffect } from "react";
-import { api } from "../utils/Api";
+import React from "react";
 import Card from "./Card.js";
 const Main = ({
   onEditProfileClick,
   onAddPlaceClick,
   onEditAvatarClick,
   cards,
-  onCardClick
+  onCardClick,
+  userAvatar,
+  userDescription,
+  userName
 }) => {
 
-  
-  const [userName, setUserName] = useState("");
-  const [userDescription, setUserDescription] = useState("");
-  const [userAvatar, setUserAvatar] = useState("");
-  
-
- 
-  // handleAddPlaceClick
-  useEffect(() => {
-    api
-      .getUserInformation()
-      .then((res) => {
-        setUserName(res.name);
-        setUserDescription(res.about);
-        setUserAvatar(res.avatar);
-      })
-      .catch(console.log);
-  }, []);
-
- 
   return (
     <main className="main">
       <section className="profile">

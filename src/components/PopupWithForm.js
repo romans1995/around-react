@@ -19,10 +19,11 @@ const PopupWithForm = (props) => {
           className={`popup__inputs-container popup__inputs-${props.name}`}
           name={props.name}
           onSubmit={props.onSubmit}
+          noValidate
         >
           {props.children}
         
-            <button   className={`popup__submit-button popup__submit-button-${props.name}`} type="submit">
+            <button className={`popup__submit-button popup__submit-button-${props.name}`} type="submit">
               {props.buttonText}
             </button>
     
