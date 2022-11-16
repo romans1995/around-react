@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Card from "./Card.js";
+import { api } from "../utils/Api";
 const Main = ({
   onEditProfileClick,
   onAddPlaceClick,
   onEditAvatarClick,
-  cards,
-  onCardClick,
-  userAvatar,
-  userDescription,
-  userName
+  handleCardClick
 }) => {
+  const [cards, setCards] = useState([]);
+  const [userName, setUserName] = useState("");
+  const [userDescription, setUserDescription] = useState("");
+  const [userAvatar, setUserAvatar] = useState("");
+  
+  useEffect(() => {
+    api
+      .getUserInformation()
+      .then((res) => {
+        setUserName(res.name);
+        setUserDescription(res.about);
+        setUserAvatar(res.avatar);
+      })
+      .catch(console.log);
+  }, []);
 
+  useEffect(() => {
+    api
+      .getInitalCards()
+      .then((res) => {
+        setCards(res);
+      })
+      .catch(console.log);
+  }, []);
   return (
     <main className="main">
       <section className="profile">
@@ -37,14 +57,9 @@ const Main = ({
       </section>
       <div className="elements">
         <ul className="elements__list">
-          {cards.map((card,i) => {
-            
-            return (<Card
-            card={card}
-            key={i}
-            onCardClick={onCardClick}
-             />
-          )})}
+          {cards.map((card) => {
+            return <Card card={card} key={card._id} onCardClick={handleCardClick} />;
+          })}
         </ul>
       </div>
     </main>
