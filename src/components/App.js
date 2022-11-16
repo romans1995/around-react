@@ -10,8 +10,14 @@ import ImagePopup from "./ImagePopup";
 import { api } from "../utils/Api";
 
 // css
-import '../index.css';
-
+import '../blocks/body.css';
+import '../blocks/header.css'
+import '../blocks/main.css'
+import '../blocks/profile.css'
+import '../blocks/elements.css'
+import '../blocks/element.css';
+import '../blocks/popup.css';
+import '../blocks/footer.css';
 
 function App() {
     const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
