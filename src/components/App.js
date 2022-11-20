@@ -9,6 +9,7 @@ import ImagePopup from "./ImagePopup";
 import PopupWithForm from "./PopupWithForm";
 
 // css
+import "../index.css";
 import "../blocks/body.css";
 import "../blocks/header.css";
 import "../blocks/main.css";
@@ -17,7 +18,7 @@ import "../blocks/elements.css";
 import "../blocks/element.css";
 import "../blocks/popup.css";
 import "../blocks/footer.css";
-import "../index.css";
+
 
 function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);

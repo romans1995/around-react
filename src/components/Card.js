@@ -5,8 +5,8 @@ const Card = (props) => {
   return (
     <li className="element">
       <button
-        type="button "
-        aria-label="delete element "
+        type="button"
+        aria-label="delete element"
         className="element__delete-button"
       />
       <img
@@ -15,11 +15,11 @@ const Card = (props) => {
         alt={props.card.name}
         className="element__image"
       />
-      <div className="element__title-area ">
+      <div className="element__title-area">
         <h2 className="element__title">{props.card.name}</h2>
         <div className="element__like-countainer">
           <button
-            className="element__like-button "
+            className="element__like-button"
             type="button "
             aria-label="like element"
           />
