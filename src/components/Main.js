@@ -8,6 +8,8 @@ const Main = ({
   onAddPlaceClick,
   onEditAvatarClick,
   handleCardClick,
+  onCardLike ,
+  onCardDelete 
 }) => {
   const [cards, setCards] = useState([]);
 
@@ -21,6 +23,21 @@ const Main = ({
       })
       .catch(console.log);
   }, []);
+  function handleCardLike(card) {
+    // Check one more time if this card was already liked
+    const isLiked = card.likes.some(user => user._id === currentUser._id);
+    
+    // Send a request to the API and getting the updated card data
+    api.likeCard(card._id, !isLiked).then((newCard) => {
+        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+    });
+} 
+function handleCardDelete(card) {
+  api.deleteCard(card._id).then((newCard) => {
+      setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+  });
+} 
+
   return (
     <main className="main">
       <section className="profile">
@@ -33,16 +50,15 @@ const Main = ({
         </div>
         <div className="profile__description">
           <div className="profile__description-button">
-            <h1 className="profile__description-name">{currentUser.name}</h1>
+            <h1 className="profile__description-name"> {currentUser.name} </h1>
             <button
               onClick={onEditProfileClick}
               className="profile__edit"
               type="button"
             ></button>
           </div>
-          <p className="profile__description-prof">{currentUser.about}</p>
+          <p className="profile__description-prof"> {currentUser.about} </p>
         </div>
-
         <button
           className="profile__add"
           onClick={onAddPlaceClick}
@@ -51,9 +67,10 @@ const Main = ({
       </section>
       <div className="elements">
         <ul className="elements__list">
+          
           {cards.map((card) => {
             return (
-              <Card card={card} key={card._id} onCardClick={handleCardClick}/>
+              <Card card={card} key={card._id} onCardClick={handleCardClick} onCardLike ={handleCardLike}  onCardDelete={handleCardDelete} />
             );
           })}
         </ul>

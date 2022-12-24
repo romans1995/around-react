@@ -73,10 +73,10 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <Header />
       <Main
-        onEditAvatarClick={handleEditAvatarClick}
-        onEditProfileClick={handleEditProfileClick}
-        onAddPlaceClick={handleAddPlaceClick}
-        handleCardClick={handleCardClick}
+    onEditAvatarClick={handleEditAvatarClick}
+    onEditProfileClick={handleEditProfileClick}
+    onAddPlaceClick={handleAddPlaceClick}
+    handleCardClick={handleCardClick}
       />
       <Footer />
 
