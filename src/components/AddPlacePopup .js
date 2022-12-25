@@ -1,5 +1,22 @@
 import PopupWithForm from "./PopupWithForm";
-const EditAddPlace = ({ isOpen, onClose }) => {
+import React, { useState } from "react";
+const AddPlacePopup  = ({ isOpen, onClose,onSubmit }) => {
+  const [cardName, setCardName] = useState('');
+  const [url, setCardUrl] = useState('');
+
+
+  const handleCardName = (e) => {
+    setCardName(e.target.value);
+  };
+
+  const handleCardUrl= (e) => {
+    setCardUrl(e.target.value);
+  };
+  function handleSubmit(e) {
+    e.preventDefault();
+  onSubmit(cardName,url);
+  }
+
   return (
     <PopupWithForm
       onClose={onClose}
@@ -7,6 +24,7 @@ const EditAddPlace = ({ isOpen, onClose }) => {
       title="New place"
       name="addPlace"
       buttonText="Create"
+      onSubmit={handleSubmit}
     >
       <div className="popup__inputs-div">
         <input
@@ -18,6 +36,7 @@ const EditAddPlace = ({ isOpen, onClose }) => {
           placeholder="Title "
           minLength="1"
           maxLength="30"
+          onChange = {handleCardName}
           required
         />
         <span
@@ -33,6 +52,7 @@ const EditAddPlace = ({ isOpen, onClose }) => {
           defaultValue=""
           type="url"
           placeholder="Image url"
+          onChange = {handleCardUrl}
           required
         />
         <span
@@ -43,4 +63,4 @@ const EditAddPlace = ({ isOpen, onClose }) => {
     </PopupWithForm>
   );
 };
-export default EditAddPlace;
+export default AddPlacePopup ;

@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
 import Card from "./Card.js";
-import { api } from "../utils/Api";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Main = ({
@@ -9,31 +8,14 @@ const Main = ({
   onEditAvatarClick,
   handleCardClick,
   onCardLike ,
+  onCardDelete ,
+  cards
    
 }) => {
-  const [cards, setCards] = useState([]);
+  
   
 
   const currentUser = useContext(CurrentUserContext);
-
-
-  function handleCardLike(card) {
-    // Check one more time if this card was already liked
-    const isLiked = card.likes.some(user => user._id === currentUser._id);
-    // Send a request to the API and getting the updated card data
-    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
-        setCards((cards) => cards.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
-    });
-} 
-function handleCardDelete(card) {
-  api.deleteCard(card._id).then((newCard) => {
-    const newCards = cards.filter(
-      (currentCard) => currentCard._id !== card._id
-    );
-    setCards(newCards);
-  });
-} 
-
   return (
     <main className="main">
       <section className="profile">
@@ -66,7 +48,7 @@ function handleCardDelete(card) {
           
           {cards.map((card) => {
             return (
-              <Card card={card} key={card._id} onCardClick={handleCardClick} onCardLike ={handleCardLike}  onCardDelete={handleCardDelete} />
+              <Card card={card} key={card._id} onCardClick={handleCardClick} onCardLike ={onCardLike}  onCardDelete ={onCardDelete } />
             );
           })}
         </ul>

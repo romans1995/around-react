@@ -13,7 +13,7 @@ const Card = (props) => {
   }
   function handleDeleteClick(e){
     e.preventDefault();
-   props.onCardDelete(props.card)
+   props.onCardDelete (props.card)
     }
   return (
     <li className="element">
