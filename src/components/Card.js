@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Card = (props) => {
-  console.log(props.card)
+  
   const currentUser = useContext(CurrentUserContext);
   const isOwn = props.card.owner._id === currentUser._id;
   function handleLikeClick(){
@@ -11,7 +11,7 @@ const Card = (props) => {
   function handleClick() {
     props.onCardClick(props.card);
   }
-  function handleCardDelete(e){
+  function handleDeleteClick(e){
     e.preventDefault();
    props.onCardDelete(props.card)
     }
@@ -23,7 +23,7 @@ const Card = (props) => {
         className={
           isOwn ? "element__delete-button" : "element__delete-button_hidden"
         }
-        onClick={handleCardDelete}
+        onClick={handleDeleteClick}
       />
       <img
         onClick={handleClick}

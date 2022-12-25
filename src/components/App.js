@@ -29,7 +29,7 @@ function App() {
   const [isImagePreviewOpen, setIsImagePreviewOpen] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
 
- 
+ console.log(currentUser);
 
   const [selectedCard, setSelectedCard] = useState({
     name: "",
@@ -45,6 +45,20 @@ function App() {
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
   };
+  const handleUpdateUser = ({ name, about }) =>{
+    api
+    .setUserInfo({name,about}).then((res)=>{
+      setCurrentUser(res)
+      closeAllPopups();
+    })
+  }
+  const handleUpdateAvatar = (url) =>{
+    console.log(url)
+    api.setAvatarImage(url).then((res) =>{
+      setCurrentUser(res);
+      closeAllPopups();
+    })
+  }
 
   const closeAllPopups = () => {
     setIsEditProfilePopupOpen(false);
@@ -59,11 +73,21 @@ function App() {
       link: card.link,
     });
   };
+
+
   useEffect(() => {
     api
       .getUserInformation()
       .then((user) => {
         setCurrentUser(user);
+      })
+      .catch(console.log);
+  }, []);
+  useEffect(() => {
+    api
+      .getInitalCards()
+      .then((res) => {
+        setCards(res);
       })
       .catch(console.log);
   }, []);
@@ -88,11 +112,14 @@ function App() {
       <EditAvatarPopup
         isOpen={isEditAvatarPopupOpen}
         onClose={closeAllPopups}
+        onUpdateAvatar ={handleUpdateAvatar}
       />
       <EditAddPlace isOpen={isAddPlacePopupOpen} onClose={closeAllPopups} />
+
       <EditProfilePopup
         isOpen={isEditProfilePopupOpen}
         onClose={closeAllPopups}
+        onUpdateUser ={handleUpdateUser}
       />
       <ImagePopup
         card={selectedCard}

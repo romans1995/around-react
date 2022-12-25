@@ -9,32 +9,28 @@ const Main = ({
   onEditAvatarClick,
   handleCardClick,
   onCardLike ,
-  onCardDelete 
+   
 }) => {
   const [cards, setCards] = useState([]);
+  
 
   const currentUser = useContext(CurrentUserContext);
 
-  useEffect(() => {
-    api
-      .getInitalCards()
-      .then((res) => {
-        setCards(res);
-      })
-      .catch(console.log);
-  }, []);
+
   function handleCardLike(card) {
     // Check one more time if this card was already liked
     const isLiked = card.likes.some(user => user._id === currentUser._id);
-    
     // Send a request to the API and getting the updated card data
-    api.likeCard(card._id, !isLiked).then((newCard) => {
-        setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+    api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+        setCards((cards) => cards.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
     });
 } 
 function handleCardDelete(card) {
   api.deleteCard(card._id).then((newCard) => {
-      setCards((state) => state.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
+    const newCards = cards.filter(
+      (currentCard) => currentCard._id !== card._id
+    );
+    setCards(newCards);
   });
 } 
 

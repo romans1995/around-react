@@ -1,8 +1,16 @@
 import PopupWithForm from "./PopupWithForm";
 import React, { useState } from "react";
-const EditProfilePopup = ({ isOpen, onClose}) => {
-  const [userName, setUserName] = useState('');
-  const [userDiscription, setUserDiscription] = useState('');
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+
+const EditProfilePopup = ({ isOpen, onClose,onUpdateUser}) => {
+  const [name, setUserName] = useState('');
+  const [about, setUserDiscription] = useState('');
+  const currentUser = React.useContext(CurrentUserContext);
+
+  React.useEffect(() => {
+    setUserName(currentUser.name);
+    setUserDiscription(currentUser.about);
+  }, [currentUser]); 
 
   const handleNameChange = (e) => {
     setUserName(e.target.value);
@@ -12,14 +20,22 @@ const EditProfilePopup = ({ isOpen, onClose}) => {
     setUserDiscription(e.target.value);
   };
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    onUpdateUser({
+      name,
+      about: about,
+    });
+  } 
+
   return (
     <PopupWithForm
       isOpen={isOpen}
       onClose={onClose}
       title="Edit profile"
-      name="profile-popup"
+      name="Edit profile-popup"
       buttonText="Save"
-      
+      onSubmit={handleSubmit}
     >
       <div className="popup__inputs-div">
         <input
@@ -28,9 +44,10 @@ const EditProfilePopup = ({ isOpen, onClose}) => {
           className="popup__input popup__inputs-type-name"
           type="text"
           placeholder="Name"
-          // minLength="2"
-          // maxLength="40"
+          minLength="2"
+          maxLength="40"
           onChange = {handleNameChange}
+          value ={name || ""}
           required
         />
         <span
@@ -45,8 +62,9 @@ const EditProfilePopup = ({ isOpen, onClose}) => {
           className=" popup__input popup__inputs-type-description "
           type="text"
           placeholder="Description"
-          // minLength="2"
-          // maxLength="200"     
+          minLength="2"
+          maxLength="200" 
+          value ={about || ""}    
           onChange = {handleDescriptionChange}
           required
         />

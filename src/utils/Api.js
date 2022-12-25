@@ -16,7 +16,8 @@ class Api {
         })
 
     }
-    setUserInfo(name, about) {
+    setUserInfo({ name, about }) {
+        console.log(name, about);
         return this._customFetch(`${this._baseUrl}/users/me`, {
             headers: this._headers,
             method: "PATCH",
@@ -47,17 +48,19 @@ class Api {
             method: "DELETE",
         });
     }
-    likeCard(cardId) {
-        return this._customFetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-            headers: this._headers,
-            method: "PUT",
-        })
-    }
-    dislikeCard(cardId) {
-        return this._customFetch(`${this._baseUrl}/cards/likes/${cardId}`, {
-            headers: this._headers,
-            method: "DELETE",
-        });
+
+    changeLikeCardStatus(cardId, isLiked) {
+        if (!isLiked) {
+            return this._customFetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+                headers: this._headers,
+                method: "PUT",
+            });
+        } else {
+            return this._customFetch(`${this._baseUrl}/cards/likes/${cardId}`, {
+                headers: this._headers,
+                method: "DELETE",
+            });
+        }
     }
     setAvatarImage(url) {
         return this._customFetch(`${this._baseUrl}/users/me/avatar`, {
