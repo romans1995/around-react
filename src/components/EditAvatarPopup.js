@@ -3,7 +3,7 @@ import PopupWithForm from "./PopupWithForm";
 
 
 
-const EditAvatarPopup = ({ isOpen, onClose,onUpdateAvatar }) => {
+const EditAvatarPopup = ({ isOpen, onClose,onUpdateAvatar,isLoading }) => {
   const url = useRef();
   function handleSubmit(e) {
     e.preventDefault();
@@ -16,7 +16,7 @@ const EditAvatarPopup = ({ isOpen, onClose,onUpdateAvatar }) => {
       isOpen={isOpen}
       title="Change Profile Picture"
       name="editAvatar "
-      buttonText="Change"
+      buttonText={`${isLoading ? "Changing..." : "Change"}`}
       onSubmit={handleSubmit}
     >
       <div className="popup__inputs-div">
