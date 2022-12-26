@@ -1,15 +1,18 @@
-import React, { useRef } from 'react';
+import React, { useRef ,useEffect} from 'react';
 import PopupWithForm from "./PopupWithForm";
 
 
 
-const EditAvatarPopup = ({ isOpen, onClose,onUpdateAvatar,isLoading }) => {
+const EditAvatarPopup = ({ isOpen, onClose, onUpdateAvatar, isLoading }) => {
+
+  
+
   const url = useRef();
   function handleSubmit(e) {
     e.preventDefault();
-  
     onUpdateAvatar(url.current.value);
   }
+  
   return (
     <PopupWithForm
       onClose={onClose}
@@ -21,14 +24,13 @@ const EditAvatarPopup = ({ isOpen, onClose,onUpdateAvatar,isLoading }) => {
     >
       <div className="popup__inputs-div">
         <input
-        ref={url}
           id="placeLink-inputAvatr"
           name="link"
           className="popup__input popup__inputs-type-placeLink"
           type="url"
           placeholder="Image url"
-          defaultValue="Image url"
-          
+          ref={url}
+          defaultValue=""
           required
         />
         <span

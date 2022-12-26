@@ -33,7 +33,7 @@ const Main = ({
               onClick={onEditProfileClick}
               className="profile__edit"
               type="button"
-            ></button>
+            />
           </div>
           <p className="profile__description-prof"> {currentUser.about} </p>
         </div>
@@ -41,7 +41,7 @@ const Main = ({
           className="profile__add"
           onClick={onAddPlaceClick}
           type="button"
-        ></button>
+        />
       </section>
       <div className="elements">
         <ul className="elements__list">

@@ -1,21 +1,26 @@
 import PopupWithForm from "./PopupWithForm";
 import React, { useState } from "react";
-const AddPlacePopup  = ({ isOpen, onClose,onSubmit ,isLoading}) => {
+const AddPlacePopup = ({ isOpen, onClose, onSubmit, isLoading }) => {
   const [cardName, setCardName] = useState('');
   const [url, setCardUrl] = useState('');
 
+  React.useEffect(() => {
+    setCardName('');
+    setCardUrl('');
+}, [isOpen]);
 
   const handleCardName = (e) => {
     setCardName(e.target.value);
   };
 
-  const handleCardUrl= (e) => {
+  const handleCardUrl = (e) => {
     setCardUrl(e.target.value);
   };
   function handleSubmit(e) {
     e.preventDefault();
-  onSubmit(cardName,url);
+    onSubmit(cardName, url);
   }
+
 
   return (
     <PopupWithForm
@@ -31,12 +36,12 @@ const AddPlacePopup  = ({ isOpen, onClose,onSubmit ,isLoading}) => {
           id="placeName-input"
           name="name"
           className="popup__input popup__inputs-type-placeName "
-          defaultValue=""
+          value={cardName}
           type="text"
           placeholder="Title "
           minLength="1"
           maxLength="30"
-          onChange = {handleCardName}
+          onChange={handleCardName}
           required
         />
         <span
@@ -49,10 +54,10 @@ const AddPlacePopup  = ({ isOpen, onClose,onSubmit ,isLoading}) => {
           id="placeLink-input"
           name="link"
           className="popup__input popup__inputs-type-placeLink"
-          defaultValue=""
+          value={url}
           type="url"
           placeholder="Image url"
-          onChange = {handleCardUrl}
+          onChange={handleCardUrl}
           required
         />
         <span
@@ -63,4 +68,4 @@ const AddPlacePopup  = ({ isOpen, onClose,onSubmit ,isLoading}) => {
     </PopupWithForm>
   );
 };
-export default AddPlacePopup ;
+export default AddPlacePopup;

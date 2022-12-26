@@ -43,7 +43,7 @@ function App() {
       setIsLoading(false);
       setCards([newCard, ...cards]);
       closeAllPopups();
-    })
+    }).catch(console.log);
   }
 
   function handleCardLike(card) {
@@ -52,7 +52,7 @@ function App() {
     // Send a request to the API and getting the updated card data
     api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
       setCards((cards) => cards.map((currentCard) => currentCard._id === card._id ? newCard : currentCard));
-    });
+    }).catch(console.log);
   }
   function handleCardDelete(e) {
     e.preventDefault();
@@ -64,7 +64,24 @@ function App() {
       );
       setCards(newCards);
       closeAllPopups();
-    });
+    }).catch(console.log);
+  }
+  const handleUpdateUser = ({ name, about }) => {
+    setIsLoading(true);
+    api
+      .setUserInfo({ name, about }).then((res) => {
+        setIsLoading(false);
+        setCurrentUser(res)
+        closeAllPopups();
+      }).catch(console.log);
+  }
+  const handleUpdateAvatar = (url) => {
+    setIsLoading(true);
+    api.setAvatarImage(url).then((res) => {
+      setIsLoading(false);
+      setCurrentUser(res);
+      closeAllPopups();
+    }).catch(console.log);
   }
 
   const handleEditAvatarClick = () => {
@@ -76,23 +93,8 @@ function App() {
   const handleAddPlaceClick = () => {
     setIsAddPlacePopupOpen(true);
   };
-  const handleUpdateUser = ({ name, about }) => {
-    setIsLoading(true);
-    api
-      .setUserInfo({ name, about }).then((res) => {
-        setIsLoading(false);
-        setCurrentUser(res)
-        closeAllPopups();
-      })
-  }
-  const handleUpdateAvatar = (url) => {
-    setIsLoading(true);
-    api.setAvatarImage(url).then((res) => {
-      setIsLoading(false);
-      setCurrentUser(res);
-      closeAllPopups();
-    })
-  }
+
+
   const handleDeleteButtonClick = (card) => {
     setDeletePopupOpen(true);
     setSelectedCard(card);
@@ -112,6 +114,17 @@ function App() {
       link: card.link,
     });
   };
+  useEffect(() => {
+    const closeByEscape = (e) => {
+      if (e.key === 'Escape') {
+        closeAllPopups();
+      }
+    }
+
+    document.addEventListener('keydown', closeByEscape)
+
+    return () => document.removeEventListener('keydown', closeByEscape)
+  }, [])
 
 
   useEffect(() => {
@@ -172,7 +185,7 @@ function App() {
           isOpen={isImagePreviewOpen}
           onClose={closeAllPopups}
         />
-          <DeleteCardPopup
+        <DeleteCardPopup
           isLoading={isLoading}
           isOpen={isetDeletePopupOpen}
           onClose={closeAllPopups}

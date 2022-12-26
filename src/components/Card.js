@@ -1,20 +1,25 @@
 import React, { useContext } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
+
 const Card = (props) => {
-  
   const currentUser = useContext(CurrentUserContext);
+  const isLikedByCurrentUser = props.card.likes.some(
+
+    (user) => user._id === currentUser._id
+  );
+  const cardLikeButtonClassName = isLikedByCurrentUser ? "element__like-button_active" : "element__like-button";
   const isOwn = props.card.owner._id === currentUser._id;
-  function handleLikeClick(){
+  function handleLikeClick() {
     props.onCardLike(props.card)
   }
   function handleClick() {
     props.onCardClick(props.card);
   }
-  function handleDeleteClick(e){
+  function handleDeleteClick(e) {
     e.preventDefault();
-   props.onCardDelete (props.card)
-    }
+    props.onCardDelete(props.card)
+  }
   return (
     <li className="element">
       <button
@@ -35,7 +40,7 @@ const Card = (props) => {
         <h2 className="element__title">{props.card.name}</h2>
         <div className="element__like-countainer">
           <button
-            className="element__like-button"
+            className={`element__like-button ${cardLikeButtonClassName}`}
             type="button "
             aria-label="like element"
             onClick={handleLikeClick}
